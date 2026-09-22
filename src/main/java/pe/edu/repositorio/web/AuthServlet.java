@@ -13,8 +13,17 @@ public class AuthServlet extends JsonServlet{
    if("/session".equals(p)){
     String t=b.path("access_token").asText("");
     if(t.isBlank())throw new IOException("Token vacío");
-    SupabaseClient.get("profiles?id=eq."+java.net.URLEncoder.encode(getUserId(t),"UTF-8"),t);
-    req.getSession(true).setAttribute("access_token",t);req.getSession(true).setAttribute("user_id",getUserId(t));json(res,M.createObjectNode().put("ok",true));
+        String userId=getUserId(t);
+        SupabaseClient.get("profiles?id=eq."+java.net.URLEncoder.encode(userId,"UTF-8"),t);
+        HttpSession session=req.getSession(true);
+        session.setAttribute("access_token",t);
+        session.setAttribute("user_id",userId);
+        Cookie cookie=new Cookie("JSESSIONID",session.getId());
+        cookie.setPath(req.getContextPath().isEmpty()?"/":req.getContextPath());
+        cookie.setHttpOnly(true);
+        cookie.setSecure(req.isSecure()||"https".equalsIgnoreCase(req.getHeader("X-Forwarded-Proto")));
+        res.addCookie(cookie);
+        json(res,M.createObjectNode().put("ok",true));
    }else if("/logout".equals(p)){if(req.getSession(false)!=null)req.getSession(false).invalidate();json(res,M.createObjectNode().put("ok",true));}
   }catch(Exception e){error(res,401,e.getMessage());}
  }
