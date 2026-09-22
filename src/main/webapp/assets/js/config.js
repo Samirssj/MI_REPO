@@ -1,0 +1,1 @@
+window.REPO_CONFIG=(()=>{const e=document.getElementById("app-config");return{url:e?.dataset.url||"",key:e?.dataset.key||""}})();

@@ -1,0 +1,20 @@
+<%@ page import="pe.edu.repositorio.config.AppConfig" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${pageTitle} | Repositorio Académico</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/main.css">
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="${pageContext.request.contextPath}/index.jsp">Repositorio Académico</a>
+  <nav>
+    <a href="${pageContext.request.contextPath}/index.jsp">Inicio</a>
+    <a href="${pageContext.request.contextPath}/semanas.jsp">Semanas</a>
+    <a href="${pageContext.request.contextPath}/actividades.jsp">Actividades</a>
+    <a href="${pageContext.request.contextPath}/perfil.jsp">Perfil</a>
+    <a href="${pageContext.request.contextPath}/login.jsp">Administrador</a>
+  </nav>
+</header>
+<div class="config" id="app-config" data-url="<%= AppConfig.getSupabaseUrl() %>" data-key="<%= AppConfig.getPublishableKey() %>"></div>
