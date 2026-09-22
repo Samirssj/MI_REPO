@@ -7,6 +7,6 @@ services:
     healthCheckPath: /
     envVars:
       - key: SUPABASE_URL
-        sync: false
+        value: https://fuloslteyorzjpuvjmbh.supabase.co
       - key: SUPABASE_PUBLISHABLE_KEY
         sync: false
